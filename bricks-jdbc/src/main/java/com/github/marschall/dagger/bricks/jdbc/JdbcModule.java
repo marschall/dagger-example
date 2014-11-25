@@ -1,4 +1,4 @@
-package com.github.marschall.dagger.bricks;
+package com.github.marschall.dagger.bricks.jdbc;
 
 import javax.inject.Singleton;
 import javax.sql.DataSource;
