@@ -48,7 +48,7 @@
       auth="Container"
       type="javax.sql.DataSource"
       factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-      driver="org.h2.Driver"
+      driverClassName="org.h2.Driver"
       url="jdbc:h2:mem:dagger;INIT=create schema if not exists test\;runscript from '~/git/dagger-examples/dagger-example-service/src/test/resources/schema.sql'\;runscript from '~/git/dagger-examples/dagger-example-service/src/test/resources/data.sql';DB_CLOSE_DELAY=-1"
       minIdle="1"
       initialSize="1"

@@ -20,15 +20,19 @@ import dagger.ObjectGraph;
 public class DaggerFilter implements Filter {
 
   @Inject // -> enables compile time checking
-  private volatile InfostoreService infostoreService;
+  volatile InfostoreService infostoreService;
   
   @Inject // -> enables compile time checking
-  private volatile TransactionOperations transactionTemplate;
+  volatile TransactionOperations transactionTemplate;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-    ObjectGraph graph = ObjectGraph.create(WebModule.class);
-    graph.inject(this);
+    try {
+      ObjectGraph graph = ObjectGraph.create(WebModule.class);
+      graph.inject(this);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   @Override

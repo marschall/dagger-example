@@ -16,9 +16,13 @@ import dagger.Provides;
 public class WebModule {
   
   @Provides
-  public DataSource provideDataSource() throws NamingException {
-    InitialContext initialContext = new InitialContext();
-    return (DataSource) initialContext.lookup("jdbc/dagger");
+  public DataSource provideDataSource() {
+    try {
+      InitialContext initialContext = new InitialContext();
+      return (DataSource) initialContext.lookup("jdbc/dagger");
+    } catch (NamingException e) {
+      throw new RuntimeException("failed to look up data source", e);
+    }
   }
   
 }
