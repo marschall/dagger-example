@@ -13,7 +13,7 @@ import dagger.ObjectGraph;
  * that is rolled back.
  */
 public class DaggerTransactionRule implements MethodRule {
-  
+
   private Object[] modules;
 
   public DaggerTransactionRule(Object... modules) {
@@ -23,13 +23,12 @@ public class DaggerTransactionRule implements MethodRule {
   @Override
   public Statement apply(Statement base, FrameworkMethod method, Object target) {
     return new Statement() {
-      
+
       @Override
       public void evaluate() throws Throwable {
         ObjectGraph graph = ObjectGraph.create(modules);
         graph.inject(target);
-        
-        
+
         PlatformTransactionManager transactionManager = graph.get(PlatformTransactionManager.class);
         TransactionStatus status = transactionManager.getTransaction(null);
         try {
@@ -37,7 +36,7 @@ public class DaggerTransactionRule implements MethodRule {
         } finally {
           transactionManager.rollback(status);
         }
-        
+
       }
     };
   }

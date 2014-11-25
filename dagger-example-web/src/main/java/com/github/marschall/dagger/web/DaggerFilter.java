@@ -2,6 +2,7 @@ package com.github.marschall.dagger.web;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,14 +16,13 @@ import dagger.ObjectGraph;
 
 public class DaggerFilter implements Filter {
 
+  @Inject // -> enables compile time checking
   private volatile InfostoreService infostoreService;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     ObjectGraph graph = ObjectGraph.create(WebModule.class);
-    // TODO Auto-generated method stub
-    infostoreService = graph.get(InfostoreService.class);
-
+    graph.inject(this);
   }
   
   @Override
