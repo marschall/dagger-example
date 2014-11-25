@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+import com.github.marschall.dagger.bricks.TransactionModule;
 import com.github.marschall.dagger.service.DefaultInfostoreService;
 import com.github.marschall.dagger.service.InfostoreModule;
-import com.github.marschall.dagger.service.TransactionModule;
 
 import dagger.Module;
 import dagger.Provides;

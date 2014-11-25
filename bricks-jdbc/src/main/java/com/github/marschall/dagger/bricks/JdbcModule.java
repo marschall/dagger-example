@@ -1,4 +1,4 @@
-package com.github.marschall.dagger.service;
+package com.github.marschall.dagger.bricks;
 
 import javax.inject.Singleton;
 import javax.sql.DataSource;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(library = true)
+@Module(library = true, complete = false)
 public class JdbcModule {
   
   @Singleton

@@ -9,6 +9,7 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>
+    <module>bricks-jdbc</module>
     <module>dagger-example-service</module>
     <module>dagger-example-web</module>
   </modules>

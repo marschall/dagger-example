@@ -1,5 +1,7 @@
 package com.github.marschall.dagger.service;
 
+import com.github.marschall.dagger.bricks.JdbcModule;
+
 import dagger.Module;
 
 @Module(

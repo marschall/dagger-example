@@ -7,14 +7,9 @@
     <artifactId>dagger-example</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>dagger-example-service</artifactId>
+  <artifactId>bricks-jdbc</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>bricks-jdbc</artifactId>
-      <version>${project.version}</version>
-    </dependency>
     <dependency>
       <groupId>com.squareup.dagger</groupId>
       <artifactId>dagger</artifactId>
