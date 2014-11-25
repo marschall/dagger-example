@@ -30,6 +30,16 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>3.1.0</version>
       </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -100,6 +110,7 @@
     <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <dagger.version>1.2.2</dagger.version>
+    <spring.version>4.1.2.RELEASE</spring.version>
   </properties>
 </project>
 
