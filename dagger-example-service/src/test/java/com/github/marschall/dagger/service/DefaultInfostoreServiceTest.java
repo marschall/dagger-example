@@ -29,7 +29,8 @@ public class DefaultInfostoreServiceTest {
     assertEquals("version", "1.2.3", infostoreService.getInfostoreVersion());
   }
   
-  @Module(includes = InfostoreModule.class,
+  @Module(
+      includes = InfostoreModule.class,
       injects = DefaultInfostoreServiceTest.class)
   static class TestModule {
     

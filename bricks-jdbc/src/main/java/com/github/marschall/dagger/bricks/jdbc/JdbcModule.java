@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(library = true, complete = false)
+@Module(
+  library = true,
+  complete = false)
 public class JdbcModule {
   
   @Singleton

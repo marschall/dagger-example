@@ -15,7 +15,8 @@ import com.github.marschall.dagger.service.InfostoreModule;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = DaggerFilter.class,
+@Module(
+  injects = DaggerFilter.class,
   includes = {TransactionModule.class, InfostoreModule.class})
 public class WebModule {
   
