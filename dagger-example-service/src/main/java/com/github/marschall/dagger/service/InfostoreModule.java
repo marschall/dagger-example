@@ -10,7 +10,8 @@ import dagger.Provides;
 @Module(
   complete = false,
   library=true,
-  includes = JdbcModule.class)
+  includes = JdbcModule.class,
+  injects = {DefaultInfostoreService.class, InfostoreDAO.class})
 public class InfostoreModule {
 
   @Singleton
