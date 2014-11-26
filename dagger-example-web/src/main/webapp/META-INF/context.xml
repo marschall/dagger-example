@@ -1,14 +1,11 @@
-<Context path="/dagger" xmlValidation="false" processTlds="false">
+<Context path="/dagger" xmlValidation="false">
 
   <ResourceLink
     name="jdbc/dagger"
     global="jdbc/dagger"
     type="javax.sql.DataSource"
     />
-    <!-- factory="org.apache.naming.factory.DataSourceLinkFactory" -->
 
-<!-- 
-  <JarScanner className="org.my.tomcat.NullJarScanner" />
--->
+  <JarScanner className="com.github.marschall.nulljarscanner.NullJarScanner" />
 
 </Context>

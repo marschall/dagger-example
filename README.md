@@ -21,3 +21,6 @@ org.apache.catalina.startup.ContextConfig.jarsToSkip=*.jar
 <Context processTlds="false">
     <JarScanner className="org.my.tomcat.NullJarScanner"/>
 </Context>
+
+http://tomcat.apache.org/tomcat-8.0-doc/jdbc-pool.html
+

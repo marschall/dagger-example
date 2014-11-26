@@ -15,8 +15,8 @@ public class InfostoreModule {
 
   @Singleton
   @Provides
-  public InfostoreService provideInfostoreService(InfostoreDAO infostoreDAO) {
-    return new DefaultInfostoreService(infostoreDAO);
+  public InfostoreService provideInfostoreService(DefaultInfostoreService service) {
+    return service;
   }
   
 }
