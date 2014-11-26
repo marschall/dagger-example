@@ -1,6 +1,7 @@
 package com.github.marschall.dagger.web;
 
 import javax.inject.Singleton;
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -21,7 +22,9 @@ public class WebModule {
   public DataSource provideDataSource() {
     try {
       InitialContext initialContext = new InitialContext();
-      return (DataSource) initialContext.lookup("jdbc/dagger");
+      Context envContext  = (Context) initialContext.lookup("java:/comp/env");
+      return (DataSource) envContext.lookup("jdbc/dagger");
+//      return (DataSource) initialContext.lookup("jdbc/dagger");
     } catch (NamingException e) {
       throw new RuntimeException("failed to look up data source", e);
     }

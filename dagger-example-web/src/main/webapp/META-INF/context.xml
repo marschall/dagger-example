@@ -1,5 +1,14 @@
-<Context>
-  <ResourceLink name="jdbc/dagger"
-     global="jdbc/dagger"
-     type="javax.sql.DataSource"/>
+<Context path="/dagger" xmlValidation="false" processTlds="false">
+
+  <ResourceLink
+    name="jdbc/dagger"
+    global="jdbc/dagger"
+    type="javax.sql.DataSource"
+    />
+    <!-- factory="org.apache.naming.factory.DataSourceLinkFactory" -->
+
+<!-- 
+  <JarScanner className="org.my.tomcat.NullJarScanner" />
+-->
+
 </Context>
