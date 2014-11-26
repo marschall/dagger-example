@@ -5,4 +5,6 @@ public interface InfostoreService {
   
   String getInfostoreVersion();
   
+  Employee getEmployee(long employeeId);
+  
 }

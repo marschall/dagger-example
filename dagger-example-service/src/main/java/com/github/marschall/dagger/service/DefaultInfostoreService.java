@@ -17,5 +17,10 @@ public class DefaultInfostoreService implements InfostoreService {
   public String getInfostoreVersion() {
     return "1.2.3";
   }
+  
+  @Override
+  public Employee getEmployee(long employeeId) {
+    return this.infostoreDAO.getEmployee(employeeId);
+  }
 
 }

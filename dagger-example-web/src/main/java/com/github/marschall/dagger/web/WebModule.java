@@ -1,5 +1,6 @@
 package com.github.marschall.dagger.web;
 
+import javax.inject.Singleton;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -15,6 +16,7 @@ import dagger.Provides;
   includes = {TransactionModule.class, InfostoreModule.class})
 public class WebModule {
   
+  @Singleton
   @Provides
   public DataSource provideDataSource() {
     try {
