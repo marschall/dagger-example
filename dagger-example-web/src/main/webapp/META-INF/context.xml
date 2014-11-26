@@ -1,4 +1,4 @@
-<Context path="/dagger" xmlValidation="false">
+<Context xmlValidation="false">
 
   <ResourceLink
     name="jdbc/dagger"
