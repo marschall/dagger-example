@@ -33,10 +33,9 @@ class ImageDrawer {
     ImageIO.write(image, "PNG", output);
   }
   
-  static String getFontFamilyNames() {
+  static String[] getFontFamilyNames() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    String []fontFamilies = ge.getAvailableFontFamilyNames();
-    return String.join(", ", fontFamilies);
+    return ge.getAvailableFontFamilyNames();
   }
 
 }

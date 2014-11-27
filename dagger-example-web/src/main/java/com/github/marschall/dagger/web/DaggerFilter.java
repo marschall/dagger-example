@@ -34,7 +34,7 @@ public class DaggerFilter implements Filter {
 
   @Inject // -> enables compile time checking
   volatile TransactionOperations transactionTemplate;
-  
+
   @Inject // -> enables compile time checking
   volatile Configuration configuration;
 
@@ -64,22 +64,20 @@ public class DaggerFilter implements Filter {
       }
       switch (pathInfo) {
         case "/":
-          renderIndex(response, httpRequest.getContextPath());
+          renderIndex(response, pathInfo);
           break;
         case "/jce":
-          sendResponse(response, getKeySize());
+          renderJce(response);
           break;
         case "/java2d":
           response.setContentType("image/png");
           ImageDrawer.drawImage(response.getOutputStream());
           break;
         case "/font-families":
-          String fontFamilies = ImageDrawer.getFontFamilyNames();
-          sendResponse(response, fontFamilies);
+          renderFontFamilies(response);
           break;
         case "/employee":
-          Employee employee = this.transactionTemplate.execute((status) -> this.infostoreService.getEmployee(1L));
-          sendResponse(response, employee);
+          renderEmployee(response);
           break;
         default:
           renderIndex(response, pathInfo);
@@ -89,44 +87,47 @@ public class DaggerFilter implements Filter {
       chain.doFilter(request, response);
     }
   }
-  
+
   private void renderIndex(ServletResponse response, String contextPath) throws IOException, ServletException {
+    Map<String, Object> root = Collections.singletonMap("contextPath", contextPath);
+    renderTemplate(response, "index.ftl", root);
+  }
+
+  private void renderJce(ServletResponse response) throws IOException, ServletException {
+    int keySize = getKeySize();
+    Map<String, Object> root = Collections.singletonMap("keySize", keySize);
+    renderTemplate(response, "jce.ftl", root);
+  }
+  
+  private void renderEmployee(ServletResponse response) throws IOException, ServletException {
+    Employee employee = this.transactionTemplate.execute((status) -> this.infostoreService.getEmployee(1L));
+    Map<String, Object> root = Collections.singletonMap("employee", employee);
+    renderTemplate(response, "employee.ftl", root);
+  }
+  
+  private void renderFontFamilies(ServletResponse response) throws IOException, ServletException {
+    Map<String, Object> root = Collections.singletonMap("fontFamilies", ImageDrawer.getFontFamilyNames());
+    renderTemplate(response, "font-families.ftl", root);
+  }
+
+  private void renderTemplate(ServletResponse response, String tempalteName, Object dataModel)
+      throws IOException, ServletException {
     response.setContentType("text/html");
     response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
     try {
-      Template template = configuration.getTemplate("index.ftl");
-      Map<String, Object> root = Collections.singletonMap("contextPath", contextPath);
-      template.process(root, response.getWriter());
+      Template template = configuration.getTemplate(tempalteName);
+      template.process(dataModel, response.getWriter());
     } catch (TemplateException e) {
       throw new ServletException("could not render template", e);
     }
   }
 
-  private String removeTrailingSlash(String contextPath) {
-    String contextPathValue = contextPath;
-    int contextPathLength = contextPathValue.length();
-    if (contextPathLength > 0 && contextPathValue.endsWith("/")) {
-      // make sure context path does not end with / so links in template work
-      contextPathValue = contextPathValue.substring(0, contextPathLength - 1);
-    }
-    return contextPathValue;
-  }
-  
   private int getKeySize() {
     try {
       return Cipher.getMaxAllowedKeyLength("AES");
     } catch (NoSuchAlgorithmException e) {
       return -1;
     }
-  }
-
-  private void sendResponse(ServletResponse response, Object value) throws IOException {
-    response.setContentType("text/plain");
-    response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
-    PrintWriter writer = response.getWriter();
-    writer.write("OK");
-    writer.write("\n");
-    writer.write(value.toString());
   }
 
   private boolean isServiceRequest(ServletRequest request) {
