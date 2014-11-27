@@ -2,8 +2,11 @@ package com.github.marschall.dagger.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.Map;
 
 import javax.crypto.Cipher;
 import javax.inject.Inject;
@@ -21,6 +24,9 @@ import com.github.marschall.dagger.service.Employee;
 import com.github.marschall.dagger.service.InfostoreService;
 
 import dagger.ObjectGraph;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 public class DaggerFilter implements Filter {
 
@@ -29,6 +35,9 @@ public class DaggerFilter implements Filter {
 
   @Inject // -> enables compile time checking
   volatile TransactionOperations transactionTemplate;
+  
+  @Inject // -> enables compile time checking
+  volatile Configuration configuration;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -51,6 +60,9 @@ public class DaggerFilter implements Filter {
         pathInfo = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
       }
       switch (pathInfo) {
+        case "/":
+          renderIndex(response, httpRequest.getContextPath());
+          break;
         case "/jce":
           sendResponse(response, getKeySize());
           break;
@@ -67,12 +79,34 @@ public class DaggerFilter implements Filter {
           sendResponse(response, employee);
           break;
         default:
-          sendResponse(response, "/jce\n/java2d\n/font-families\n/java2d\n/employee");
+          renderIndex(response, pathInfo);
           break;
       }
     } else {
       chain.doFilter(request, response);
     }
+  }
+  
+  private void renderIndex(ServletResponse response, String contextPath) throws IOException, ServletException {
+    response.setContentType("text/html");
+    response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
+    try {
+      Template template = configuration.getTemplate("index.ftl");
+      Map<String, Object> root = Collections.singletonMap("contextPath", contextPath);
+      template.process(root, response.getWriter());
+    } catch (TemplateException e) {
+      throw new ServletException("could not render template", e);
+    }
+  }
+
+  private String removeTrailingSlash(String contextPath) {
+    String contextPathValue = contextPath;
+    int contextPathLength = contextPathValue.length();
+    if (contextPathLength > 0 && contextPathValue.endsWith("/")) {
+      // make sure context path does not end with / so links in template work
+      contextPathValue = contextPathValue.substring(0, contextPathLength - 1);
+    }
+    return contextPathValue;
   }
   
   private int getKeySize() {
