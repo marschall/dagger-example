@@ -23,4 +23,10 @@ public class DefaultInfostoreService implements InfostoreService {
     return this.infostoreDAO.getEmployee(employeeId);
   }
 
+  @Override
+  public void initializeDatabase() {
+    this.infostoreDAO.initializeDatabase();
+    
+  }
+
 }

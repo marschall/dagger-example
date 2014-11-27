@@ -7,4 +7,6 @@ public interface InfostoreService {
   
   Employee getEmployee(long employeeId);
   
+  void initializeDatabase();
+  
 }

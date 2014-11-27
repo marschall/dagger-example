@@ -2,7 +2,6 @@ package com.github.marschall.dagger.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
@@ -43,6 +42,10 @@ public class DaggerFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {
     ObjectGraph graph = ObjectGraph.create(WebModule.class);
     graph.inject(this);
+    // work around that we can't have space in Docker ENV vars
+    this.transactionTemplate.execute((status) -> {
+      this.infostoreService.initializeDatabase();
+      return null; });
   }
 
   @Override

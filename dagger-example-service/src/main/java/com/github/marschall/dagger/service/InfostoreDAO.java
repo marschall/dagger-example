@@ -37,4 +37,18 @@ public class InfostoreDAO {
     return employee;
   }
 
+  public void initializeDatabase() {
+    this.jdbcTemplate.update("CREATE TABLE employees (" 
+        + "   employee_id   NUMERIC       NOT NULL,"
+        + "   first_name    VARCHAR(1000) NOT NULL,"
+        + "   last_name     VARCHAR(1000) NOT NULL,"
+        + "   date_of_birth DATE                  ,"
+        + "   phone_number  VARCHAR(1000) NOT NULL,"
+        + "   PRIMARY KEY (employee_id)"
+        + ")");
+    this.jdbcTemplate.update(
+        "INSERT INTO employees (employee_id, first_name, last_name, date_of_birth    , phone_number)" 
+        + "       VALUES         (1          , 'John'    , 'Doe'    , DATE '1980-01-01', '1234567890')");
+  }
+
 }
