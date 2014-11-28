@@ -64,7 +64,7 @@ public class DaggerFilter implements Filter {
       }
       switch (pathInfo) {
         case "/":
-          renderIndex(response, pathInfo);
+          renderIndex(response, httpRequest);
           break;
         case "/jce":
           renderJce(response);
@@ -80,7 +80,7 @@ public class DaggerFilter implements Filter {
           renderEmployee(response);
           break;
         default:
-          renderIndex(response, pathInfo);
+          renderIndex(response, httpRequest);
           break;
       }
     } else {
@@ -88,7 +88,13 @@ public class DaggerFilter implements Filter {
     }
   }
 
-  private void renderIndex(ServletResponse response, String contextPath) throws IOException, ServletException {
+  private void renderIndex(ServletResponse response, HttpServletRequest httpRequest) throws IOException, ServletException {
+    String contextPath = httpRequest.getContextPath();
+    int contextPathLength = contextPath.length();
+    if (contextPathLength > 0 && contextPath.endsWith("/")) {
+      // remove trailing slash so that links can start with /
+      contextPath = contextPath.substring(0, contextPathLength - 1);
+    }
     Map<String, Object> root = Collections.singletonMap("contextPath", contextPath);
     renderTemplate(response, "index.ftl", root);
   }
