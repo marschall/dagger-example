@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Employee</title>
-</head>
-<body>
+<#import "dagger-page.ftl" as lib>
+<@lib.dagger_page>
   <h1>Employee</h1>
   <dl>
     <dt>Employee Id</dt><dd>${employee.employeeId}</dd>
@@ -12,5 +8,4 @@
     <dt>Date Of Birth</dt><dd>${employee.dateOfBirth}</dd>
     <dt>Phone Number</dt><dd>${employee.phoneNumber}</dd>
   </dl>
-</body>
-</html>
+</@lib.dagger_page>

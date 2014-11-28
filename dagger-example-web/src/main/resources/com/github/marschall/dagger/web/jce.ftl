@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>JCE</title>
-</head>
-<body>
+<#import "dagger-page.ftl" as lib>
+<@lib.dagger_page>
   <h1>JCE</h1>
   Max Allowed AES Key Length: ${keySize}
-</body>
-</html>
+</@lib.dagger_page>

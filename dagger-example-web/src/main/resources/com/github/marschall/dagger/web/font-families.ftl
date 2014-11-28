@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Font Families</title>
-</head>
-<body>
+<#import "dagger-page.ftl" as lib>
+<@lib.dagger_page>
   <h1>Font Families</h1>
   <ul>
   <#list fontFamilies as fontFamily>
     <li>${fontFamily}</li>
   </#list>
   </ul>
-</body>
-</html>
+</@lib.dagger_page>

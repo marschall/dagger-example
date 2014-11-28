@@ -15,6 +15,7 @@ import com.github.marschall.dagger.service.InfostoreModule;
 import dagger.Module;
 import dagger.Provides;
 import freemarker.template.Configuration;
+import freemarker.template.TemplateExceptionHandler;
 
 @Module(
   injects = DaggerFilter.class,
@@ -27,7 +28,8 @@ public class WebModule {
     Configuration configuration = new Configuration(VERSION_2_3_21);
     configuration.setClassForTemplateLoading(WebModule.class, "");
     configuration.setDefaultEncoding("UTF-8");
-    configuration.setTemplateExceptionHandler(RETHROW_HANDLER);
+//    configuration.setTemplateExceptionHandler(RETHROW_HANDLER);
+    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
     return configuration;
   }
   
