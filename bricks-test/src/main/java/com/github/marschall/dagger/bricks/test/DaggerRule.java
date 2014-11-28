@@ -3,7 +3,6 @@ package com.github.marschall.dagger.bricks.test;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import dagger.ObjectGraph;
 
