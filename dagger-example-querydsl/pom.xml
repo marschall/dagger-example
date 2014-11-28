@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.marschall</groupId>
+    <artifactId>dagger-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>dagger-example-querydsl</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>bricks-jdbc</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>bricks-test</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup.dagger</groupId>
+      <artifactId>dagger</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup.dagger</groupId>
+      <artifactId>dagger-compiler</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.mysema.querydsl</groupId>
+      <artifactId>querydsl-sql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>export</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jdbcDriver>org.h2.Driver</jdbcDriver>
+          <jdbcUrl>jdbc:h2:mem:querydsl;INIT=create schema if not exists querydsl\;runscript from '${project.basedir}/src/test/resources/schema.sql'</jdbcUrl>
+          <packageName>com.github.marschall.dagger.querydsl.domain</packageName>
+          <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
+  <!--
+      optional elements :      
+      * jdbcUser = connection user
+      * jdbcPassword = connection password
+      * namePrefix = name prefix for generated query classes (default: Q)
+      * schemaPattern = ant style pattern to restrict code generation to certain schemas (default: null)
+      * tableNamePattern = ant style pattern to restrict code generation to certain tables (default: null)
+      * exportBeans = set to true to generate beans as well, see section 2.14.13 (default: false)
+      * innerClassesForKeys = set to true to generate inner classes for keys (default: false)
+      * validationAnnotations = set to false to disable serialization of validation annotations (default: true)
+    -->     
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
+
