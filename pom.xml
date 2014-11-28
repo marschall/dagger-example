@@ -12,6 +12,7 @@
     <module>bricks-jdbc</module>
     <module>bricks-test</module>
     <module>dagger-example-service</module>
+    <module>dagger-example-querydsl</module>
     <module>dagger-example-web</module>
   </modules>
 
@@ -55,7 +56,18 @@
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
-        <version>1.4.182</version>
+        <version>${h2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-sql</artifactId>
+        <version>${querydsl.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-sql-codegen</artifactId>
+        <version>${querydsl.version}</version>
+        <scope>provided</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -93,6 +105,11 @@
           <artifactId>jandex-maven-plugin</artifactId>
           <version>1.0.1</version>
         </plugin>
+        <plugin>
+          <groupId>com.mysema.querydsl</groupId>
+          <artifactId>querydsl-maven-plugin</artifactId>
+          <version>${querydsl.version}</version>
+        </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings 
           only. It has no influence on the Maven build itself. -->
         <plugin>
@@ -128,6 +145,8 @@
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <dagger.version>1.2.2</dagger.version>
     <spring.version>4.1.2.RELEASE</spring.version>
+    <querydsl.version>3.5.1</querydsl.version>
+    <h2.version>1.4.182</h2.version>
   </properties>
 </project>
 
