@@ -146,7 +146,7 @@
     <dagger.version>1.2.2</dagger.version>
     <spring.version>4.1.2.RELEASE</spring.version>
     <querydsl.version>3.5.1</querydsl.version>
-    <h2.version>1.4.182</h2.version>
+    <h2.version>2.0.206</h2.version>
   </properties>
 </project>
 
